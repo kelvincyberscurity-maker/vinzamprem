@@ -1,33 +1,82 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <meta name="theme-color" content="#050509">
-  <title>Vinz Web</title>
-  <style>
-    *{box-sizing:border-box}
-    html,body{margin:0;width:100%;height:100%;background:#050509;overflow:hidden}
-    iframe{display:block;width:100%;height:100%;border:0;background:#050509}
-    #error{
-      display:none;position:fixed;inset:0;padding:28px;color:#fff;
-      font:15px/1.6 system-ui,sans-serif;background:#050509;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>Raven Web</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;background:#fff;color:#111}
+body{overflow:hidden}
+#app{position:fixed;inset:0;background:#fff}
+#web{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;display:none}
+#loading,#error{
+ position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+ background:#fff;padding:24px;text-align:center;z-index:5
+}
+.card{width:min(420px,100%);padding:28px;border:1px solid #e5e7eb;border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,.08);background:#fff}
+.spinner{width:42px;height:42px;margin:0 auto 18px;border:4px solid #e5e7eb;border-top-color:#111;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+h1{font-size:22px;margin:0 0 10px}
+p{margin:8px 0;color:#555;line-height:1.5}
+.small{font-size:13px;color:#777;word-break:break-all}
+button,a{
+ display:inline-flex;align-items:center;justify-content:center;min-height:46px;
+ padding:0 20px;border-radius:12px;text-decoration:none;font-weight:700;
+ border:1px solid #111;background:#111;color:#fff;margin-top:16px;cursor:pointer
+}
+.secondary{background:#fff;color:#111;border-color:#d1d5db;margin-left:8px}
+.hidden{display:none!important}
+</style>
 </head>
 <body>
-  <iframe
-    src="http://tex.ravenhost.space:17730"
-    title="Vinz"
+<div id="app">
+  <iframe id="web" title="Vinz Web"
+    src="http://tex.ravenhost.space:17730/"
     allow="clipboard-read; clipboard-write; fullscreen"
-    referrerpolicy="no-referrer">
-  </iframe>
+    referrerpolicy="no-referrer"></iframe>
 
-  <div id="error">
-    <h2>Website tidak dapat ditampilkan</h2>
-    <p>Browser dapat memblokir halaman HTTP yang dibuka dari halaman HTTPS.
-    Untuk hasil yang benar-benar HTTPS, aktifkan HTTPS langsung pada server/domain
-    <b>tex.ravenhost.space</b>.</p>
-  </div>
+  <section id="loading">
+    <div class="card">
+      <div class="spinner"></div>
+      <h1>Memuat Vinz Web</h1>
+      <p>Mohon tunggu, sedang membuka website.</p>
+      <p class="small">tex.ravenhost.space:17730</p>
+    </div>
+  </section>
+
+  <section id="error" class="hidden">
+    <div class="card">
+      <h1>Website tidak dapat ditampilkan</h1>
+      <p id="reason">Koneksi ke website belum berhasil.</p>
+      <p class="small">Jika halaman ini dibuka dari HTTPS, browser dapat memblokir website HTTP.</p>
+      <a href="http://tex.ravenhost.space:17730/" target="_blank" rel="noopener">Buka Website Langsung</a>
+      <button class="secondary" onclick="location.reload()">Coba Lagi</button>
+    </div>
+  </section>
+</div>
+
+<script>
+const frame=document.getElementById('web');
+const loading=document.getElementById('loading');
+const error=document.getElementById('error');
+let loaded=false;
+
+frame.addEventListener('load',()=>{
+  loaded=true;
+  loading.classList.add('hidden');
+  error.classList.add('hidden');
+  frame.style.display='block';
+});
+
+setTimeout(()=>{
+  if(!loaded){
+    loading.classList.add('hidden');
+    frame.style.display='none';
+    error.classList.remove('hidden');
+  }
+},8000);
+</script>
 </body>
 </html>
