@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
-<title>Raven Web</title>
+<title>Vinz Web</title>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;background:#fff;color:#111}
@@ -33,7 +33,7 @@ button,a{
 <body>
 <div id="app">
   <iframe id="web" title="Vinz Web"
-    src="http://tex.ravenhost.space:17730/"
+    src="/api/proxy/"
     allow="clipboard-read; clipboard-write; fullscreen"
     referrerpolicy="no-referrer"></iframe>
 
@@ -42,7 +42,7 @@ button,a{
       <div class="spinner"></div>
       <h1>Memuat Vinz Web</h1>
       <p>Mohon tunggu, sedang membuka website.</p>
-      <p class="small">tex.ravenhost.space:17730</p>
+      <p class="small">Menghubungkan melalui HTTPS proxy Vercel…</p>
     </div>
   </section>
 
@@ -50,8 +50,8 @@ button,a{
     <div class="card">
       <h1>Website tidak dapat ditampilkan</h1>
       <p id="reason">Koneksi ke website belum berhasil.</p>
-      <p class="small">Jika halaman ini dibuka dari HTTPS, browser dapat memblokir website HTTP.</p>
-      <a href="http://tex.ravenhost.space:17730/" target="_blank" rel="noopener">Buka Website Langsung</a>
+      <p class="small">Koneksi ke server tujuan diteruskan melalui HTTPS agar tidak terkena mixed-content browser.</p>
+      <a href="https://tex.ravenhost.space:17730/" target="_blank" rel="noopener">Buka Website Langsung</a>
       <button class="secondary" onclick="location.reload()">Coba Lagi</button>
     </div>
   </section>
