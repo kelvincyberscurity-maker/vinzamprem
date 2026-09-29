@@ -1,4 +1,10 @@
 {
   "version": 2,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "routes": [
+    { "src": "/proxy(?:/(.*))?", "dest": "/api/proxy?path=$1" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
 }
+
