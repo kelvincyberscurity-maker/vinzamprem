@@ -3,80 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
 <title>Vinz Web</title>
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;background:#fff;color:#111}
-body{overflow:hidden}
-#app{position:fixed;inset:0;background:#fff}
-#web{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;display:none}
-#loading,#error{
- position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
- background:#fff;padding:24px;text-align:center;z-index:5
-}
-.card{width:min(420px,100%);padding:28px;border:1px solid #e5e7eb;border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,.08);background:#fff}
-.spinner{width:42px;height:42px;margin:0 auto 18px;border:4px solid #e5e7eb;border-top-color:#111;border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-h1{font-size:22px;margin:0 0 10px}
-p{margin:8px 0;color:#555;line-height:1.5}
-.small{font-size:13px;color:#777;word-break:break-all}
-button,a{
- display:inline-flex;align-items:center;justify-content:center;min-height:46px;
- padding:0 20px;border-radius:12px;text-decoration:none;font-weight:700;
- border:1px solid #111;background:#111;color:#fff;margin-top:16px;cursor:pointer
-}
-.secondary{background:#fff;color:#111;border-color:#d1d5db;margin-left:8px}
-.hidden{display:none!important}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#fff;font-family:Arial,sans-serif}body{overflow:hidden}#web{width:100%;height:100%;border:0;display:none}#loading,#error{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#fff;padding:20px}.card{width:min(490px,100%);padding:30px 24px;text-align:center;border:1px solid #e5e7eb;border-radius:20px;box-shadow:0 10px 35px #00000012}.spin{width:44px;height:44px;border:4px solid #e5e7eb;border-top-color:#111;border-radius:50%;margin:0 auto 18px;animation:r .8s linear infinite}@keyframes r{to{transform:rotate(360deg)}}h1{font-size:23px;margin:0 0 10px}p{color:#666;line-height:1.5;margin:8px 0}.small{font-size:13px;color:#888;word-break:break-all}button,a{display:inline-flex;align-items:center;justify-content:center;margin-top:16px;min-height:46px;padding:0 20px;border-radius:12px;border:1px solid #111;background:#111;color:#fff;text-decoration:none;font-weight:700}.secondary{background:#fff;color:#111;border-color:#ddd;margin-left:8px}.hide{display:none!important}
 </style>
 </head>
 <body>
-<div id="app">
-  <iframe id="web" title="Vinz Web"
-    src="/api/proxy/"
-    allow="clipboard-read; clipboard-write; fullscreen"
-    referrerpolicy="no-referrer"></iframe>
-
-  <section id="loading">
-    <div class="card">
-      <div class="spinner"></div>
-      <h1>Memuat Vinz Web</h1>
-      <p>Mohon tunggu, sedang membuka website.</p>
-      <p class="small">Menghubungkan melalui HTTPS proxy Vercel…</p>
-    </div>
-  </section>
-
-  <section id="error" class="hidden">
-    <div class="card">
-      <h1>Website tidak dapat ditampilkan</h1>
-      <p id="reason">Koneksi ke website belum berhasil.</p>
-      <p class="small">Koneksi ke server tujuan diteruskan melalui HTTPS agar tidak terkena mixed-content browser.</p>
-      <a href="https://tex.ravenhost.space:17730/" target="_blank" rel="noopener">Buka Website Langsung</a>
-      <button class="secondary" onclick="location.reload()">Coba Lagi</button>
-    </div>
-  </section>
-</div>
-
+<div id="loading"><div class="card"><div class="spin"></div><h1>Memuat Vinz Web</h1><p>Mohon tunggu, sedang membuka website.</p><p class="small">tex.ravenhost.space:17730</p></div></div>
+<div id="error" class="hide"><div class="card"><h1>Website tidak dapat ditampilkan</h1><p id="msg">Proxy tidak dapat menghubungi server tujuan.</p><p class="small">Pastikan server Utama aktif dan dapat diakses dari internet.</p><button onclick="location.reload()">Coba Lagi</button></div></div>
+<iframe id="web" src="/proxy/" allow="clipboard-read; clipboard-write; fullscreen" referrerpolicy="no-referrer"></iframe>
 <script>
-const frame=document.getElementById('web');
-const loading=document.getElementById('loading');
-const error=document.getElementById('error');
-let loaded=false;
-
-frame.addEventListener('load',()=>{
-  loaded=true;
-  loading.classList.add('hidden');
-  error.classList.add('hidden');
-  frame.style.display='block';
-});
-
-setTimeout(()=>{
-  if(!loaded){
-    loading.classList.add('hidden');
-    frame.style.display='none';
-    error.classList.remove('hidden');
-  }
-},8000);
+const f=document.getElementById('web'),l=document.getElementById('loading'),e=document.getElementById('error');
+let ok=false;
+f.addEventListener('load',()=>{ok=true;l.classList.add('hide');e.classList.add('hide');f.style.display='block';});
+setTimeout(()=>{if(!ok){l.classList.add('hide');e.classList.remove('hide');}},12000);
 </script>
 </body>
 </html>
